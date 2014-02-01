@@ -188,7 +188,7 @@ The `GetPrevNextUrn` reply includes two `cts:urn` elements.  The value of each e
 
 ### GetFirstUrn ###
 
-The `GetPrevNextUrn` reply includes one `cts:urn` elements.  The value of this element must be a valid CTS URN and must include a passage component identifying the version of the work as a specific edition or translation.
+The `GetFirstUrn` reply includes one `cts:urn` elements.  The value of this element must be a valid CTS URN and must include a passage component identifying the version of the work as a specific edition or translation.
 
 
 ### GetLabel ##
@@ -218,8 +218,6 @@ The published text of this specification in markdown notation is packaged with a
 
 ## Related ##
 `ctsvalidator` is a software package that is not part of the CTS specification, but may be used to assess the compliance of a CTS installation with version 5.0.rc.1 of the specification.   It is available from this github repository:   <https://github.com/neelsmith/ctsvalidator>.
-
-
 
 ## Links
  {==TBA==}{>>ADD LINKS AS SOON AS PACKAGE IS UPLOADED<<}
