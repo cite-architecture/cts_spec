@@ -177,33 +177,61 @@ Many elements include `xml:lang` attributes, which must use 3-character codes fr
 
 ### GetValidReff ###
 
-The core of the `GetValidReff` request is an ordered list of `cts:urn` elements.  The value of each element must be a valid CTS URN, and the list must be in document order.  The citation level of the passage component must be equal to the citation level of the request urn.
+The core of the `GetValidReff` request is an ordered list of `cts:urn` elements.  The value of each element must be a valid CTS URN, and the list must be in document order.   Each URN must include a passage component identifying the version of the work as a specific edition or translation.  The citation level of the passage component must be equal to the citation level of the request urn.
 
 
 ### GetPrevNextUrn ###
 
-The `GetPrevNextUrn` reply includes two `cts:urn` elements.  The value of each element must be either empty, or a valid CTS URN.
+The `GetPrevNextUrn` reply includes two `cts:urn` elements.  The value of each element must be either empty, or a valid CTS URN.  If the value is not empty, it must include a passage component identifying the version of the work as a specific edition or translation.
+
+
 
 ### GetFirstUrn ###
 
+The `GetPrevNextUrn` reply includes one `cts:urn` elements.  The value of this element must be a valid CTS URN and must include a passage component identifying the version of the work as a specific edition or translation.
 
-### GetLabel ###
 
 ### GetLabel ##
 
+The content of the `cts:label` element may have any text the implementor chooses.  Its contents should be comparable 
+to the value of a `rdfs:label` in RDF Schema.  Implementors are strongly encouraged to include as part of the `cts:label` contents separately labelled strings for any of the optional `ti:groupname`, `ti:title`, `ti:version` and `ti:citation` elements that are relevant.
+
 ### GetPassage ##
+
+The `GetPassage` reply includes one `cts:urn` element.  The value of this element must be a valid CTS URN identifying the content in the `cts:passage` element and must include a passage component identifying the version of the work as a specific edition or translation.
+
+The content of the `cts:passage` consists of a passage of text from the edition or translation specified in the request urn, and may therefore be further structured or formatted in whatever manner was selected by the editor of the particular edition or translation.  The CTS implementation must ensure that including the contents of the requested in the `cts:passage` element results in well-formed XML.
 
 ### GetPassagePlus ##
 
+The `GetPassagePlus` reply includes one `cts:urn` element at the root of the `ti:request` element.  The value of this element must be a valid CTS URN identifying the content in the `cts:passage` element and must include a passage component identifying the version of the work as a specific edition or translation.
 
+It includes two further `cts:urn` elements within the `prevnext` element. The value of each of these two elements must be either empty, or a valid CTS URN.
+
+The content of the `cts:passage` consists of a passage of text from the edition or translation specified in the request urn, and may therefore be further structured or formatted in whatever manner was selected by the editor of the particular edition or translation.  The CTS implementation must ensure that including the contents of the requested in the `cts:passage` element results in well-formed XML.
+
+As in the `GetLabel` request, implementors are strongly encouraged to include as part of the conents of the `cts:label` element separately labelled strings for any of the optional `ti:groupname`, `ti:title`, `ti:version` and `ti:citation` elements that are relevant.
 
 ## Reply schemas ##
 
-The published text of this specification in markdown notation is packaged with a directory of Relax NG schemas specifying the syntax of the seven defined CTS requests.
+The published text of this specification in markdown notation is packaged with a directory of Relax NG schemas specifying the syntax of the seven defined CTS requests.  The schema with the corresponding name can be used to validate the syntax of a CTS reply (e.g., the `GetCapabilities.rng` schema can be used to validate the `GetCapabilities` reply).
 
 ## Related ##
+`ctsvalidator` is a software package that is not part of the CTS specification, but may be used to assess the compliance of a CTS installation with version 5.0.rc.1 of the specification.   It is available from this github repository:   <https://github.com/neelsmith/ctsvalidator>.
 
-The CTS validator
+
+
+## Links
+ {==TBA==}{>>ADD LINKS AS SOON AS PACKAGE IS UPLOADED<<}
+
+
+- The CTS URN specification: <http://www.homermultitext.org/hmt-docs/specifications/ctsurn> 
+- Maven settings for using this specification and its schemas from a maven client: 
+-  Known mirrors of this specification:
+    - from the Homer Multitext project:
+    - from Furman University:
+    - from the College of the Holy Cross:
+
 
 ## Acknowledgments ##
 
@@ -212,6 +240,7 @@ Version 5.0.rc.1 is based on earlier CTS specifications from 2003-2013 with cont
 - Jason Aftosmis
 - Bridget Almas
 - Hugh Cayless
+- Greg Crane
 - Tom Elliott
 - Ryan Gabbard
 - Andrew Gollan
@@ -224,11 +253,3 @@ Version 5.0.rc.1 is based on earlier CTS specifications from 2003-2013 with cont
 - Ross Scaife
 - John Wallrodt
 - Gabe Weaver
-
-
-
- ## Links
-
-1. Relax NG schemas
-2. CTS Validator
-
