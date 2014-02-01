@@ -12,21 +12,29 @@
 			name="dc:title">
 			<attribute
 				name="xml:lang">
-				<text/>
+				<data type="string">
+					<param name="pattern">...+</param>
+				</data>
 			</attribute>
-			<text/>
+			<data type="string">
+				<param name="pattern">.+</param>
+			</data>
 		</element>
 		<oneOrMore>
 			<element
 				name="dc:creator">
-				<text/>
+				<data type="string">
+					<param name="pattern">.+</param>
+				</data>
 			</element>
 		</oneOrMore>
 		<element
 			name="dc:coverage">
 			<attribute
 				name="xml:lang"/>
-			<text/>
+			<data type="string">
+				<param name="pattern">.+</param>
+			</data>
 		</element>
 		<element
 			name="dc:description">
@@ -37,7 +45,11 @@
 		<element
 			name="dc:rights">
 			<attribute
-				name="xml:lang"/>
+				name="xml:lang">
+				<data type="string">
+					<param name="pattern">...+</param>
+				</data>
+			</attribute>
 			<text/>
 		</element>
 	</define>
