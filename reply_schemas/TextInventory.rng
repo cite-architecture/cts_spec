@@ -4,7 +4,7 @@
 	xmlns="http://relaxng.org/ns/structure/1.0"
 	xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:ti="http://chs.harvard.edu/xmlns/cts/ti">
+	xmlns:ti="http://chs.harvard.edu/xmlns/cts">
 	<!-- Dublin Core elements to provide for each Collection -->
 	<define
 		name="metadata">
