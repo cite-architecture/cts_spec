@@ -22,6 +22,7 @@ Client applications may indicate a valid version number in the optional `version
 
 An instance of a CTS implementation is addressable by a Uniform Resource Locator (URL), referred to hereafter as a CTS "base URL".  CTS requests are formed by adding request parameters, as specified below, directly to the base URL.  More formally, the concatenation of the base URL with URL parameters must produce a valid URL according to the requirements of the URL specification [IETF RFC 2396][rfc2396].  Replies are formatted in XML validating against the reply schemas identified below.  
 
+
 [rfc2396]: http://www.ietf.org/rfc/rfc2396.txt
 
 ### Discussion (non-normative) ###
@@ -51,6 +52,8 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 [cts]: http://www.homermultitext.org/hmt-docs/specifications/ctsurn
 
+
+
 ### GetCapabilities
 
 **Purpose**: The GetCapabilities request returns a reply that defines a corpus of texts known to the server and, for texts that are available online, identifies their citation schemes.
@@ -64,10 +67,9 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 
 ### GetValidReff
-
 **Purpose**:   The GetValidReff request identifies all valid values for one on-line version of a requested work, up to a specified level of the citation hierarchy.
 
-**Request syntax and semantics**:  The `urn` parameter identifies a text or a text passage.  If the work component of the URN is given at the notional work level, the implementation is free to supply valid reference values from any single online version of the work in its inventory.  If the URN includes a passage component, the reply must include only valid values contained in the requested passage.  The `level` parameter indicates how many levels of the citation hierarchy should be included in the reply. It is not an error if the `level` parameter is greater than the greatest depth of citation for a requested URN, but in that case the reply will consist of zero citations.
+**Request syntax and semantics**:  The `urn` parameter identifies a text or a text passage.  If the work component of the URN is given at the notional work level, the implementation is free to supply valid reference values from any single online version of the work in its inventory.  If the URN includes a passage component, the reply must include only valid values contained in the requested passage.  The `level` parameter indicates how many levels of the citation hierarchy should be included in the reply.
 
 
 | Parameter |	Required/optional |	Description |  
@@ -78,7 +80,7 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 ### GetFirstUrn ###
 
-**Purpose**:   The `GetFirstUrn` request identifies the first citation node in a text. If the `urn` parameter is a work- or verion-level URN. If the `urn` parameter contains a passage componenet, `GetFirstUrn` returns the first citation node of the text at the same level of the citation hierarchy as the `urn` parameter.
+**Purpose**:   The `GetFirstUrn` request identifies, at the same level of the citation hierarchy as the `urn` parameter, the first citation node in a text.  
 
 **Request syntax and semantics**:   The `urn` parameter identifies a work, version or text passage.  If the work component of the URN is given at the notional work level, the implementation is free to return the first URN values from any single online version of the work in its inventory. 
 
@@ -105,6 +107,7 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 **Request syntax and semantics**:  The `urn` parameter identifies a text group, a text or a text passage.  The contents of the returned label are not defined by CTS.  Implementations should return a descriptive string that is semantically comparable to the use of `rdfs:label` in [RDF Schema][rdfs].
 
+
 [rdfs]: http://www.w3.org/TR/rdf-schema/
 
 | Parameter |	Required/optional |	Description |  
@@ -112,17 +115,26 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 | request | required | The value `GetLabel` |
 | urn | required | Text group, work, version or text passage to label |  
 
+
+
+
 ### GetPassage ###
 
 **Purpose**:  The `GetPassage` request retrieves a passage of a text identified by a URN, optionally including a requested amount of adjacent context.
 
 **Request syntax and semantics**:  The `urn` parameter identifies a text passage.  An optional `context` parameter may request a number of preceding and following citation units to include along with the requested urn.  It is not an error if the document contains fewer than `context` preceding units or following units. It is an error if the `context` parameter is not a positive integer.
 
+
 | Parameter |	Required/optional |	Description |  
 |  ------	| ------	| ------	|  
 | request | required | The value `GetLabel` |
 | urn | required | Text passage to retrieve  |
 | context |   optional | Number of citation units, at the same level of the citation hierarchy as the requested urn, immediately preceding and immediately following  the requested urn to include in the reply  |
+
+
+
+
+ 
 
 ### GetPassagePlus ###
 
@@ -135,6 +147,7 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 | request | required | The value `GetLabel` |
 | urn | required | Text passage to retrieve |
 | context |   optional | Number of citation units, at the same level of the citation hierarchy as the requested urn, immediately preceding and immediately following  the requested urn to include in the reply  |
+
 
 ## CTS replies ##
 
@@ -150,6 +163,7 @@ If the syntax and contents of request parameters fully comply with the specifica
 
 While the Relax NG schema for each requests defines and can be used to enforce a number of the syntactic requirements of CTS, there are further requirements that cannont be readily defined in a schema language.  These are specified for each request in the following sections.
 
+
 ### GetCapabilities ###
 
 Each element in the XML hierarchy of `cts:textgroup`, `cts:work`, `cts:edition`  or `cts:translation`and `cts:exemplar` has a `urn` attribute identifying the unit.  Each urn value must be unique within the `GetCapabilities` reply.  Each urn must be a valid CTS URN value, and the CTS URN of the containing element must match this value up to the final component of the URN's work hierarchy.  The urn's CTS namespace must be previously defined in the `abbr` attribute of a `cts:ctsnamespace` element.
@@ -158,35 +172,66 @@ Many elements include `xml:lang` attributes, which must use 3-character codes fr
 
 - on elements giving names, titles and labels, `xml:lang` refers to the primary language of the content of the element
 - on the `cts:work` element, `xml:lang` refers to the primary language of the notional work
-- on the `cts:translation` element, `xml:lang` refers to the primary language of the translated version of the work.  `cts:edition` elements do not have an `xml:lang` attribute because an edition is defined as any identifiable version of a notional work that has the same primary language as the notional work.
+- on the `cts:translation` elemet, `xml:lang` refers to the primary language of the translated version of the work.  `cts:edition` elements do not have an `xml:lang` attribute because an edition is defined as any identifiable version of a notional work that has the same primary language as the notional work.
+
 
 ### GetValidReff ###
 
-The core of the `GetValidReff` request is an ordered list of `cts:urn` elements.  The value of each element must be a valid CTS URN, and the list must be in document order.  The citation level of the passage component must be equal to the citation level of the request urn.
+The core of the `GetValidReff` request is an ordered list of `cts:urn` elements.  The value of each element must be a valid CTS URN, and the list must be in document order.   Each URN must include a passage component identifying the version of the work as a specific edition or translation.  The citation level of the passage component must be equal to the citation level of the request urn.
+
 
 ### GetPrevNextUrn ###
 
-The `GetPrevNextUrn` reply includes two `cts:urn` elements.  The value of each element must be either empty, or a valid CTS URN.
+The `GetPrevNextUrn` reply includes two `cts:urn` elements.  The value of each element must be either empty, or a valid CTS URN.  If the value is not empty, it must include a passage component identifying the version of the work as a specific edition or translation.
+
+
 
 ### GetFirstUrn ###
 
-### GetLabel ###
+The `GetPrevNextUrn` reply includes one `cts:urn` elements.  The value of this element must be a valid CTS URN and must include a passage component identifying the version of the work as a specific edition or translation.
+
 
 ### GetLabel ##
 
+The content of the `cts:label` element may have any text the implementor chooses.  Its contents should be comparable 
+to the value of a `rdfs:label` in RDF Schema.  Implementors are strongly encouraged to include as part of the `cts:label` contents separately labelled strings for any of the optional `ti:groupname`, `ti:title`, `ti:version` and `ti:citation` elements that are relevant.
+
 ### GetPassage ##
+
+The `GetPassage` reply includes one `cts:urn` element.  The value of this element must be a valid CTS URN identifying the content in the `cts:passage` element and must include a passage component identifying the version of the work as a specific edition or translation.
+
+The content of the `cts:passage` consists of a passage of text from the edition or translation specified in the request urn, and may therefore be further structured or formatted in whatever manner was selected by the editor of the particular edition or translation.  The CTS implementation must ensure that including the contents of the requested in the `cts:passage` element results in well-formed XML.
 
 ### GetPassagePlus ##
 
+The `GetPassagePlus` reply includes one `cts:urn` element at the root of the `ti:request` element.  The value of this element must be a valid CTS URN identifying the content in the `cts:passage` element and must include a passage component identifying the version of the work as a specific edition or translation.
 
+It includes two further `cts:urn` elements within the `prevnext` element. The value of each of these two elements must be either empty, or a valid CTS URN.
+
+The content of the `cts:passage` consists of a passage of text from the edition or translation specified in the request urn, and may therefore be further structured or formatted in whatever manner was selected by the editor of the particular edition or translation.  The CTS implementation must ensure that including the contents of the requested in the `cts:passage` element results in well-formed XML.
+
+As in the `GetLabel` request, implementors are strongly encouraged to include as part of the conents of the `cts:label` element separately labelled strings for any of the optional `ti:groupname`, `ti:title`, `ti:version` and `ti:citation` elements that are relevant.
 
 ## Reply schemas ##
 
-The published text of this specification in markdown notation is packaged with a directory of Relax NG schemas specifying the syntax of the seven defined CTS requests.
+The published text of this specification in markdown notation is packaged with a directory of Relax NG schemas specifying the syntax of the seven defined CTS requests.  The schema with the corresponding name can be used to validate the syntax of a CTS reply (e.g., the `GetCapabilities.rng` schema can be used to validate the `GetCapabilities` reply).
 
 ## Related ##
+`ctsvalidator` is a software package that is not part of the CTS specification, but may be used to assess the compliance of a CTS installation with version 5.0.rc.1 of the specification.   It is available from this github repository:   <https://github.com/neelsmith/ctsvalidator>.
 
-The CTS validator
+
+
+## Links
+ {==TBA==}{>>ADD LINKS AS SOON AS PACKAGE IS UPLOADED<<}
+
+
+- The CTS URN specification: <http://www.homermultitext.org/hmt-docs/specifications/ctsurn> 
+- Maven settings for using this specification and its schemas from a maven client: 
+-  Known mirrors of this specification:
+    - from the Homer Multitext project:
+    - from Furman University:
+    - from the College of the Holy Cross:
+
 
 ## Acknowledgments ##
 
@@ -195,6 +240,7 @@ Version 5.0.rc.1 is based on earlier CTS specifications from 2003-2013 with cont
 - Jason Aftosmis
 - Bridget Almas
 - Hugh Cayless
+- Greg Crane
 - Tom Elliott
 - Ryan Gabbard
 - Andrew Gollan
@@ -207,11 +253,3 @@ Version 5.0.rc.1 is based on earlier CTS specifications from 2003-2013 with cont
 - Ross Scaife
 - John Wallrodt
 - Gabe Weaver
-
-
-
- ## Links
-
-1. Relax NG schemas
-2. CTS Validator
-
