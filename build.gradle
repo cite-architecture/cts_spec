@@ -1,0 +1,19 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+
+apply plugin: "base"
+defaultTasks : 'usage'
+
+
+
+
+task usage << {
+    println "Usage:"
+    println "   guide     Builds grails docs in build/docs."
+    println "   web       Builds web site with docs in build/web."
+    println "   zip       Bundles web site with docs in build/distributions."
+    println "   clean     Deletes contents of build."
+}
+
+
+
