@@ -80,7 +80,14 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 ### GetFirstUrn ###
 
+**Purpose**:   The `GetFirstUrn` request identifies, at the same level of the citation hierarchy as the `urn` parameter, the first citation node in a text.  
 
+**Request syntax and semantics**:   The `urn` parameter identifies a work, version or text passage.  If the work component of the URN is given at the notional work level, the implementation is free to return the first URN values from any single online version of the work in its inventory. 
+
+| Parameter |	Required/optional |	Description |  
+|  ------	| ------	| ------	|  
+| request | required | The value `GetFirstUrn` |
+| urn | required |  A work, version or text passage | 
 
 ### GetPrevNextUrn ###
 
