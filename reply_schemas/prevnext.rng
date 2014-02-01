@@ -11,7 +11,11 @@
                         name="cts:prev">
                         <element
                             name="cts:urn">
-                            <text/>
+                            <data
+                                type="anyURI">
+                                <param
+                                    name="pattern">urn:cts:.+:.+\..+\..+:.+</param>
+                            </data>
                         </element>
                     </element>
                 
@@ -19,7 +23,11 @@
                         name="cts:next">
                         <element
                             name="cts:urn">
-                            <text/>
+                            <data
+                                type="anyURI">
+                                <param
+                                    name="pattern">urn:cts:.+:.+\..+\..+:.+</param>
+                            </data>
                         </element>
                     </element>
                     
