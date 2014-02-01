@@ -18,11 +18,9 @@ An identifier for a pre-release version is composed of a regular release-version
 
 Client applications may indicate a valid version number in the optional `version` parameter of the `GetCapabilities` request (see below). Use of a version parameter in client requests may be required in future versions of this protocol. 
 
-
 ## Client-server communication
 
 An instance of a CTS implementation is addressable by a Uniform Resource Locator (URL), referred to hereafter as a CTS "base URL".  CTS requests are formed by adding request parameters, as specified below, directly to the base URL.  More formally, the concatenation of the base URL with URL parameters must produce a valid URL according to the requirements of the URL specification [IETF RFC 2396][rfc2396].  Replies are formatted in XML validating against the reply schemas identified below.  
-
 
 
 [rfc2396]: http://www.ietf.org/rfc/rfc2396.txt
@@ -58,7 +56,7 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 ### GetCapabilities
 
-**Purpose**: The GetCapabilities request defines a corpus of texts known to the server and, for texts that are available  online, identifies their citation schemes.
+**Purpose**: The GetCapabilities request returns a reply that defines a corpus of texts known to the server and, for texts that are available online, identifies their citation schemes.
 
 **Request syntax and semantics**:  No parameters other than the `request` parameter are required.  A request may optionally include a `version` parameter indicating the version of the protocol preferred by the client.  As of version 5.0.rc.1, CTS implementations are not required to recognize or alter their reply in response to a `version` parameter. 
 
@@ -84,9 +82,9 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 ### GetPrevNextUrn ###
 
-**Purpose**:   The `GetPrevNextUrn` request identifies, at the same level of the citation hierarchy as the `urn` parameter, the  preceding and following citation node.  
+**Purpose**:   The `GetPrevNextUrn` request identifies, at the same level of the citation hierarchy as the `urn` parameter, the  preceding and following citation nodes.  
 
-**Request syntax and semantics**:    The `urn` parameter identifies a text passage.  If the work component of the URN is given at the notional work level, the implementation is free to return preceding and following URN values from any single online version of the work in its inventory.  If the `urn` parameter identifies the first next in the text, the previous URN value will be a null string.  If the `urn` parameter identifies the last next in the text, the following URN value will be a null String. 
+**Request syntax and semantics**:    The `urn` parameter identifies a text passage.  If the work component of the URN is given at the notional work level, the implementation is free to return preceding and following URN values from any single online version of the work in its inventory.  If the `urn` parameter identifies the first node in the text, the previous URN value will be a null string.  If the `urn` parameter identifies the last node in the text, the following URN value will be a null string. 
 
 | Parameter |	Required/optional |	Description |  
 |  ------	| ------	| ------	|  
