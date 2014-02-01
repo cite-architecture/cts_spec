@@ -46,7 +46,7 @@ is a valid base URL because the request `http://myhost/mycts?configuration=defau
 ### Common requirements
 In a full CTS request URL, each parameter's name and value pair must be separated from any following parameters by an ampersand ("&", Unicode x0026); name and value for each individual parameter must be separated by an equals sign ("=", Unicode x003D).  The characters "&",  "="  and the solidus  ("/", Unicode x002F) must not be used in the values of a CTS request parameter.  Parameter names and values are both case sensitive. Order of parameters in a request is not significant. 
 
-All CTS requests include a URL parameter named `request`. The value of this parameter must be the name of one the six requests, `GetCapabilities`, `GetValidReff`,`GetPrevNextUrn`, `GetLabel`, `GetPassage` or `GetPassagePlus`.
+All CTS requests include a URL parameter named `request`. The value of this parameter must be the name of one the seven requests, `GetCapabilities`, `GetValidReff`,  `GetFirstUrn`,  `GetPrevNextUrn`, `GetLabel`, `GetPassage` or `GetPassagePlus`.
 
 All requests other than `GetCapabilities` further require a parameter named `urn`.  The value of this parameter must be a valid CTS URN value, as defined in the [CTS URN specification][cts].
 
@@ -77,6 +77,8 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 |   request | required | The value `GetValidReff` |
 | urn | required | Work, version or text passage for which to find valid references |  
 | level | required |  Number of levels of citation hierarchy to report |  
+
+### GetFirstUrn ###
 
 
 
@@ -173,6 +175,8 @@ The core of the `GetValidReff` request is an ordered list of `cts:urn` elements.
 
 ### GetPrevNextUrn ###
 
+### GetFirstUrn ###
+
 
 ### GetLabel ###
 
@@ -186,7 +190,7 @@ The core of the `GetValidReff` request is an ordered list of `cts:urn` elements.
 
 ## Reply schemas ##
 
-The published text of this specification in markdown notation is packaged with a directory of Relax NG schemas specifying the syntax of the six defined CTS requests.
+The published text of this specification in markdown notation is packaged with a directory of Relax NG schemas specifying the syntax of the seven defined CTS requests.
 
 ## Related ##
 
