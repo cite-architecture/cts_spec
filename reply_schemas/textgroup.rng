@@ -44,11 +44,7 @@
 								name="pattern">...+</param>
 						</data>
 					</attribute>
-					<data
-						type="string">
-						<param
-							name="pattern">.+</param>
-					</data>
+					<text></text>
 				</element>
 			</zeroOrMore>
 			<optional>
