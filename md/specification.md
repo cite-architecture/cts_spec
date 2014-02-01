@@ -144,7 +144,7 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 ## CTS replies ##
 
-The reply to a CTS request is always a well-formed XML document with a root element having the same name as the CTS request.  The XML namespace for all replies is `http://chs.harvard.edu/xmlns/cts/`.  In the rest of this document, this will be referred to with the abbreviation `ti:`
+The reply to a CTS request is always a well-formed XML document with a root element having the same name as the CTS request.  The XML namespace for all replies is `http://chs.harvard.edu/xmlns/cts/`.  In the rest of this document, this will be referred to with the abbreviation `cts:`
 
 The reply document always contains exactly two elements, the first of which is named `request`. The contexts of the `request` element are unspecified, and may be used for any purpose the implementor wishes.  As the name of the element is intended to imply, it is strongly recommended that implementing software include in this element information about the parameters passed in with the request. Developers may also use this element for other purposes such as embedding debugging information in a reply that complies with the CTS specification. 
 
@@ -159,16 +159,18 @@ While the Relax NG schema for each requests defines and can be used to enforce a
 
 ### GetCapabilities ###
 
-Each element in the XML hierarchy of `ti:textgroup`, `ti:work`, `ti:edition`  or `ti:translation`and `ti:exemplar` has a `urn` attribute identifying the unit.  Each urn value must be unique within the `GetCapabilities` reply.  Each urn must be a valid CTS URN value, and the CTS URN of the containing element must match this value up to the final component of the URN's work hierarchy.  The urn's CTS namespace must be previously defined in the `abbr` attribute of a `ti:ctsnamespace` element.
+Each element in the XML hierarchy of `cts:textgroup`, `cts:work`, `cts:edition`  or `cts:translation`and `cts:exemplar` has a `urn` attribute identifying the unit.  Each urn value must be unique within the `GetCapabilities` reply.  Each urn must be a valid CTS URN value, and the CTS URN of the containing element must match this value up to the final component of the URN's work hierarchy.  The urn's CTS namespace must be previously defined in the `abbr` attribute of a `cts:ctsnamespace` element.
 
 Many elements include `xml:lang` attributes, which must use 3-character codes from ISO 639-2 <http://lcweb.loc.gov/standards/iso639-2/englangn.html> or 3-character or longer codes from ISO 639-5 <http://www.loc.gov/standards/iso639-5/id.php>.  The semantics of the `xml:lang` attribute in a CTS `GetCapabilities` reply is:
 
 - on elements giving names, titles and labels, `xml:lang` refers to the primary language of the content of the element
-- on the `ti:work` element, `xml:lang` refers to the primary language of the notional work
-- on the `ti:translation` elemet, `xml:lang` refers to the primary language of the translated version of the work.  `ti:edition` elements do not have an `xml:lang` attribute because an edition is defined as any identifiable version of a notional work that has the same primary language as the notional work.
+- on the `cts:work` element, `xml:lang` refers to the primary language of the notional work
+- on the `cts:translation` elemet, `xml:lang` refers to the primary language of the translated version of the work.  `cts:edition` elements do not have an `xml:lang` attribute because an edition is defined as any identifiable version of a notional work that has the same primary language as the notional work.
 
 
 ### GetValidReff ###
+
+The core of the `GetValidReff` request is an ordered list of `cts:urn` elements.  The value of each element must be a valid CTS URN, and the list must be in document order.  The citation level of the passage component must be equal to the citation level of the request urn.
 
 
 ### GetPrevNextUrn ###
@@ -197,6 +199,7 @@ The CTS validator
 Version 5.0.rc.1 is based on earlier CTS specifications from 2003-2013 with contributions from Lenny Muellner, Program Director of Publications and Information Technology at CHS, and:
 
 - Jason Aftosmis
+- Bridget Almas
 - Hugh Cayless
 - Tom Elliott
 - Ryan Gabbard
