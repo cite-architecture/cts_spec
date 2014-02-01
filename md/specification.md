@@ -182,6 +182,8 @@ The core of the `GetValidReff` request is an ordered list of `cts:urn` elements.
 
 ### GetPrevNextUrn ###
 
+The `GetPrevNextUrn` reply includes two `cts:urn` elements.  The value of each element must be either empty, or a valid CTS URN.
+
 ### GetFirstUrn ###
 
 

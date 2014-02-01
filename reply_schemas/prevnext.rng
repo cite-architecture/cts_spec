@@ -9,6 +9,7 @@
                     name="cts:prevnext">
                     <element
                         name="cts:prev">
+                        <choice>
                         <element
                             name="cts:urn">
                             <data
@@ -17,18 +18,28 @@
                                     name="pattern">urn:cts:.+:.+\..+\..+:.+</param>
                             </data>
                         </element>
+                            <element name="cts:urn">
+                                <empty></empty>
+                            </element>
+                        </choice>
+                       
                     </element>
                 
                     <element
                         name="cts:next">
-                        <element
-                            name="cts:urn">
-                            <data
-                                type="anyURI">
-                                <param
-                                    name="pattern">urn:cts:.+:.+\..+\..+:.+</param>
-                            </data>
-                        </element>
+                        <choice>
+                            <element
+                                name="cts:urn">
+                                <data
+                                    type="anyURI">
+                                    <param
+                                        name="pattern">urn:cts:.+:.+\..+\..+:.+</param>
+                                </data>
+                            </element>
+                            <element name="cts:urn">
+                                <empty></empty>
+                            </element>
+                        </choice>
                     </element>
                     
                 </element>
