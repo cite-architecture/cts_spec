@@ -88,8 +88,7 @@
 							<param name="pattern">...+</param>
 							</data>
 							</attribute>
-						<data type="string">
-						<param name="pattern">.+</param></data>
+						<text/>
 						</element>
 					</optional>
 				</element>
