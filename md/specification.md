@@ -155,7 +155,13 @@ If the syntax and contents of request parameters fully comply with the specifica
 
 ### GetCapabilities ###
 
+- ctsnamespace semantics
+- usage of xml:lang attributes The Relax NG
+All lang attributes should use 3-character codes from ISO 639-2.
+                Refer to the list at the Library of Congress:
+                <http://lcweb.loc.gov/standards/iso639-2/englangn.html>.
 
+- urn values on work hierarchy:  appropriate leel enforced by schema, but you will have to validate for yourself that values are coherent.
 
 ### GetValidReff ###
 
