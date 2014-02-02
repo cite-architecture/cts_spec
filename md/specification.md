@@ -163,6 +163,7 @@ If the syntax and contents of `request` parameters do not fully comply with the 
 | 2 | Invalid URN syntax |  
 | 3 | Syntactically valid URN refers in invalid value  
 | 4 | Invalid value for `level` parameter in `GetValidReff` request |  
+| 5 | Invalid value for `context` parameter in `GetPassage` or `GetPassagePlus` request |
 
 
 If the syntax and contents of request parameters fully comply with the specifications in this document, then the name and format of the second element vary according to the request, and are defined in the following sections. 
