@@ -151,11 +151,19 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 ## CTS replies ##
 
-The reply to a CTS request is always a well-formed XML document with a root element having the same name as the CTS request.  The XML namespace for all replies is `http://chs.harvard.edu/xmlns/cts/`.  In the rest of this document, this will be referred to with the abbreviation `cts:`
+The reply to a valid CTS request is always a well-formed XML document with a root element having the same name as the CTS request validating against one of the schemas identified below.  The reply to an invalid request validates against the schema `Error.rng`.  The XML namespace for all replies is `http://chs.harvard.edu/xmlns/cts/`.  In the rest of this document, this will be referred to with the abbreviation `cts:`
 
 The reply document always contains exactly two elements, the first of which is named `request`. The contexts of the `request` element are unspecified, and may be used for any purpose the implementor wishes.  As the name of the element is intended to imply, it is strongly recommended that implementing software include in this element information about the parameters passed in with the request. Developers may also use this element for other purposes such as embedding debugging information in a reply that complies with the CTS specification. 
 
-If the syntax and contents of `request` parameters do not fully comply with the specifications in this document, the second element of the reply is named `error`;  the format and content of error reporting are left up to the implementing software.  Future versions of the protocol may define structures for error reporting. 
+If the syntax and contents of `request` parameters do not fully comply with the specifications in this document, the second element of the reply is named `CTSError`, and contains two elements, `message` and `code`.  The contents of the `message` should contain a human-readable description of the error, but is not otherwise specified.  The `code` element contains an integer with one of the following values:
+
+| Error code | meaning  
+|  ------	| ------	|  
+| 1 | Request missing one or more required parameters |
+| 2 | Invalid URN syntax |  
+| 3 | Syntactically valid URN refers in invalid value  
+| 4 | Invalid value for `level` parameter in `GetValidReff` request |  
+
 
 If the syntax and contents of request parameters fully comply with the specifications in this document, then the name and format of the second element vary according to the request, and are defined in the following sections. 
 
