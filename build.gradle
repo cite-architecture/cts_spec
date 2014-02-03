@@ -2,18 +2,76 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 
 apply plugin: "base"
-defaultTasks : 'usage'
+apply plugin: "maven"
+
+//defaultTasks : 'usage'
+
+group = "org.homermultitext"
+
+version = "5.0.rc.1"
 
 
+if (hasProperty('pub')) {
+    System.err.print "Using configuration data from ${pub}"
+    File confFile = new File(pub)
+    if (! confFile.exists()) {
+        throw new Exception("No publication configuration file ${pub} found.")
+    } else {
+        apply from: pub
+    }
 
-
-task usage << {
-    println "Usage:"
-    println "   guide     Builds grails docs in build/docs."
-    println "   web       Builds web site with docs in build/web."
-    println "   zip       Bundles web site with docs in build/distributions."
-    println "   clean     Deletes contents of build."
+} else {
+    File confFile = new File("publish.gradle")
+    if (! confFile.exists()) {
+        throw new Exception("No publication configuration file ${confFile} found\
+.")
+    } else {
+        println "Using default configuration in 'publish.gradle'"
+        apply from: "publish.gradle"
+    }
 }
 
+
+
+task setUp1 (type: Copy) {
+  from "reply_schemas"
+  into "${buildDir}/pkg/schemas"
+  include "**/*.rng"
+  doLast {
+    println "Copied schemas to build area."
+  }
+}
+
+
+task setUp2 (type: Copy) {
+  from "md"
+  into "${buildDir}/pkg"
+  include "specification.md"
+  filter(ReplaceTokens, tokens: [version : version])
+  doLast {
+    println "Copied specification to build area."
+  }
+}
+
+
+task release(type: Zip, dependsOn: [setUp1, setUp2])  {
+    description = 'Builds zip file of specification and schemas.'
+    from(file("${buildDir}/pkg"))
+    doLast {
+      println "Made zip file for release."
+    }    
+}
+
+artifacts {
+  archives release
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: nexusRepo) {                   
+            authentication (userName: nexusUser, password: nexusPassword)
+        }
+    }
+}
 
 

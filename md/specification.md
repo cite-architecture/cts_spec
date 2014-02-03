@@ -1,6 +1,6 @@
-# The Canonical Text Services protocol, version 5.0.rc.1 #
+# The Canonical Text Services protocol, version @version@ #
 
-**Content**:  This document defines version 5.0.rc.1 of the Canonical Text Services protocol (CTS).  This specification incorporates by reference the Relax NG schemas identified below.
+**Content**:  This document defines version @version@ of the Canonical Text Services protocol (CTS).  This specification incorporates by reference the Relax NG schemas identified below.
 
 **Editors**:  Christopher Blackwell and Neel Smith, Center for Hellenic Studies Technical Working Group leads.
 
@@ -58,7 +58,7 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 **Purpose**: The GetCapabilities request returns a reply that defines a corpus of texts known to the server and, for texts that are available online, identifies their citation schemes.
 
-**Request syntax and semantics**:  No parameters other than the `request` parameter are required.  A request may optionally include a `version` parameter indicating the version of the protocol preferred by the client.  As of version 5.0.rc.1, CTS implementations are not required to recognize or alter their reply in response to a `version` parameter. 
+**Request syntax and semantics**:  No parameters other than the `request` parameter are required.  A request may optionally include a `version` parameter indicating the version of the protocol preferred by the client.  As of version @version@, CTS implementations are not required to recognize or alter their reply in response to a `version` parameter. 
 
 | Parameter |	Required/optional |	Description |  
 |  ------	| ------	| ------	|  
@@ -226,23 +226,24 @@ As in the `GetLabel` request, implementors are strongly encouraged to include as
 The published text of this specification in markdown notation is packaged with a directory of Relax NG schemas specifying the syntax of the seven defined CTS requests.  The schema with the corresponding name can be used to validate the syntax of a CTS reply (e.g., the `GetCapabilities.rng` schema can be used to validate the `GetCapabilities` reply).
 
 ## Related ##
-`ctsvalidator` is a software package that is not part of the CTS specification, but may be used to assess the compliance of a CTS installation with version 5.0.rc.1 of the specification.   It is available from this github repository:   <https://github.com/neelsmith/ctsvalidator>.
+`ctsvalidator` is a software package that is not part of the CTS specification, but may be used to assess the compliance of a CTS installation with version @version@ of the specification.   It is available from this github repository:   <https://github.com/neelsmith/ctsvalidator>.
 
 ## Links
- {==TBA==}{>>ADD LINKS AS SOON AS PACKAGE IS UPLOADED<<}
-
 
 - The CTS URN specification: <http://www.homermultitext.org/hmt-docs/specifications/ctsurn> 
-- Maven settings for using this specification and its schemas from a maven client: 
+- Maven settings for using the release version of this specification and its schemas from a maven client: 
+    - group: `org.homermultitext`
+    - artifact: `cts-spec`
+    - version: `5.0`
 -  Known mirrors of this specification:
-    - from the Homer Multitext project:
-    - from Furman University:
-    - from the College of the Holy Cross:
+    - from the Homer Multitext project:  <http://www.homermultitext.org/hmt-docs/specifications/cts>
+    - from Furman University: <http://folio.furman.edu/projects/citedocs/cts>
+    - from the College of the Holy Cross:  <http://shot.holycross.edu/hmt-docs/specifications/cts>
 
 
 ## Acknowledgments ##
 
-Version 5.0.rc.1 is based on earlier CTS specifications from 2003-2013 with contributions from Lenny Muellner, Program Director of Publications and Information Technology at CHS, and:
+Version @version@ is based on earlier CTS specifications from 2003-2013 with contributions from Lenny Muellner, Program Director of Publications and Information Technology at CHS, and:
 
 - Jason Aftosmis
 - Bridget Almas
