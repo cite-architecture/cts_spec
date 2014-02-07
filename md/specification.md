@@ -6,7 +6,7 @@
 
 **Date**:  February, 2014.
 
-**License**:  This specification and the associated Relax NG schemas are avaiable under the terms of the Creative Commons Attribution-ShareAlike 4.0 International License, <http://creativecommons.org/licenses/by-sa/4.0/deed.en_US>.
+**License**:  This specification and the associated Relax NG schemas are available under the terms of the Creative Commons Attribution-ShareAlike 4.0 International License, <http://creativecommons.org/licenses/by-sa/4.0/deed.en_US>.
 
 ## CTS
 The Canonical Text Services protocol defines interaction between a client and server providing identification of texts and retrieval of canonically cited passages of texts.
@@ -235,6 +235,7 @@ The published text of this specification in markdown notation is packaged with a
     - group: `org.homermultitext`
     - artifact: `cts-spec`
     - version: `5.0`
+-  Nexus repository to proxy this release:  <http://beta.hpcc.uh.edu/nexus/content/repositories/releases> 
 -  Known mirrors of this specification:
     - from the Homer Multitext project:  <http://www.homermultitext.org/hmt-docs/specifications/cts>
     - from Furman University: <http://folio.furman.edu/projects/citedocs/cts>
