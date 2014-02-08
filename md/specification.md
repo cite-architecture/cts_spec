@@ -138,9 +138,20 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 ### GetPassagePlus ###
 
-**Purpose**:  The `GetPassagePlus` request retrieves a passage of a text identified by a URN, wrapped together with the information provided by the `GetLabel` and `GetPrevNextUrn` requests. Like `GetPassage`, the `GetPassagePlus` request may optionally include a requested amount of adjacent context.
+**Purpose**:  The `GetPassagePlus` request retrieves a passage of a text identified by a URN, wrapped together with the information provided by the `GetLabel`, `GetPrevNextUrn`, `GetFirstUrn` and `GetValidReff` requests. Like `GetPassage`, the `GetPassagePlus` request may optionally include a requested amount of adjacent context.
 
-**Request syntax and semantics**:  The `urn` parameter identifies a text passage.  An optional `context` parameter may request a number of preceding and following citation units to include along with the requested urn.  It is not an error if the document contains fewer than `context` preceding units or following units. It is an error if the `context` parameter is not a positive integer.
+**Request syntax and semantics**:  The `urn` parameter identifies a text passage.  An optional `context` parameter may request a number of preceding and following citation units to include along with the requested urn.  It is not an error if the document contains fewer than `context` preceding units or following units. It is an error if the `context` parameter is not a positive integer.  The `firsturn` element and the `label` element have the same meaning as the `GetFirstUrn` and `GetLabel` requests, respectively.  The `validreff` element must be empty if the requested CTS URN cites a single leaf node in the text's citation hierarchy;  if the requested CTS URN cites either a range of nodes or a single node at a non-leaf level of the hierarchy, the contents of the `validreff` element must be the same as the corresponding `GetValidReff` request.
+
+The semantics of the `prevnext` element's content  depends on whether or not the optional `context` parameter is included.  
+
+When no `context` parameter is included, the contents of the `prevnext` element correspond to the meaning of `GetPrevNextUrn` request.  When a `context` parameter is included, the semantics of the `prevnext` element take account of the fact that up to `context` citation units could be included before or after the requested node.  
+
+If a `context` parameter is give, and there are at least `context` citation units prior to the request urn, then the `prev` element's `urn` element refers to the citable node that is `context` citation units before the first unit in the `passage` reply (that is, the node that is `2*context` citation units before the requested urn).  If there are fewer than `context` units but at least one unit before the requested urn, then the vaue of the `prev` element's `urn` element is the first urn of the text.  
+
+If a `context` parameter is give, and there are at least `context` citation units following the request urn, then the `next` element's `urn` element refers to the citable node that is `context` citation units after the first unit in the `passage` reply (that is, the node that is `2*context` citation units after the requested urn).  If there are fewer than `context` units but at least one unit after the requested urn, then the vaue of the `prev` element's `urn` element is the last urn of the text.  
+
+Whether or not a `context` parameter is included, if the requested urn identifies the first node in the text, the value of the `prev` element's `urn` element must be a null string.  If the requested urn identifies the last node in the text, the value of the `next` element's `urn` element must be a null string. 
+
 
 | Parameter |	Required/optional |	Description |  
 |  ------	| ------	| ------	|  
