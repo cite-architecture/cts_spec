@@ -244,7 +244,7 @@ The published text of this specification in markdown notation is packaged with a
 - The CTS URN specification: <http://www.homermultitext.org/hmt-docs/specifications/ctsurn> 
 - Maven settings for using the release version of this specification and its schemas from a maven client: 
     - group: `org.homermultitext`
-    - artifact: `cts-spec`
+    - artifact: `cts_spec`
     - version: `5.0`
 -  Nexus repository to proxy this release:  <http://beta.hpcc.uh.edu/nexus/content/repositories/releases> 
 -  Known mirrors of this specification:
