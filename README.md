@@ -22,7 +22,8 @@ This build file includes a task named `release` that replaces references to the 
 
 Prerequisites:  beautifuldocs, <http://beautifuldocs.com/>.
 
-The following sequence is not yet pacakged as a build task, but can easily be done as follows:
+We are currentl using beautifuldocs to install searchable HTML versions of this specification on a number
+of web sites.  The following sequence is not yet packaged as a build task, but can easily be done as follows:
 
 	gradle release
 	cp md/manifest.json build/pkg
