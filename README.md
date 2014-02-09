@@ -1,7 +1,11 @@
 # cts-spec
 
 
-Specification of the Canonical Text Services protocol (CTS) version 5.0.rc.1.  The text of the specification is markdown format in the file `md/specification.md`.  The Relax NG schemas defining the syntax of the CTS replies are in the directory `reply_schemas`.
+Specification of the Canonical Text Services protocol (CTS) version 5.0.rc.1. 
+
+The source text of the specification is markdown format in the file `md/specification.md`.  It systematically refers to version numbers with the gradle property notation `@version@`.  This reference is replaced with the current version value in the build.
+ 
+The Relax NG schemas defining the syntax of the CTS replies are in the directory `reply_schemas`.
 
 ## Draft status and discussion
 
