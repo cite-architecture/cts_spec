@@ -3,14 +3,17 @@
 
 Specification of the Canonical Text Services protocol (CTS) version 5.0.rc.1. 
 
-The source text of the specification is markdown format in the file `md/specification.md`.  It systematically refers to version numbers with the gradle property notation `@version@`.  This reference is replaced with the current version value in the build.
+The source text of the specification is in markdown format in the file `md/specification.md`.  The
+source text systematically refers to the current version number with the gradle property notation `@version@`.  
+This reference is replaced with the actual current version value in the build process.
  
 The Relax NG schemas defining the syntax of the CTS replies are in the directory `reply_schemas`.
 
 ## Draft status and discussion
 
-The current version of the specification is 5.0.rc.2.  See the project wiki at
-<https://github.com/neelsmith/cts_spec/wiki> for more information about status and future plans.
+The last released version of the specification is 5.0.rc.1.  Current work is on 
+5.0.rc.2. See the project wiki at <https://github.com/neelsmith/cts_spec/wiki> for more information 
+about status and future plans.
 
 
 ## Using this build file ##
