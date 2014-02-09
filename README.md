@@ -3,6 +3,12 @@
 
 Specification of the Canonical Text Services protocol (CTS) version 5.0.rc.1.  The text of the specification is markdown format in the file `md/specification.md`.  The Relax NG schemas defining the syntax of the CTS replies are in the directory `reply_schemas`.
 
+## Draft status and discussion
+
+The current version of the specification is 5.0.rc.2.  See the project wiki at
+<https://github.com/neelsmith/cts_spec/wiki> for more information about status and future plans.
+
+
 ## Using this build file ##
 
 This build file includes a task named `release` that replaces references to the project's `version` property with the value of the current version, and places the resulting file in `build/pkg`.  It places a zip archive of this in `build/distributions`, which can be published to a maven repository with the task `uploadArchives`.  
