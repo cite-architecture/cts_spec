@@ -264,6 +264,7 @@ Version @version@ is based on earlier CTS specifications from 2003-2013 with con
 - Tom Elliott
 - Ryan Gabbard
 - Andrew Gollan
+- Michael Gursky
 - Sebastian Heath
 - Scott Mcphee
 - David Mimno
