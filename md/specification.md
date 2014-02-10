@@ -266,6 +266,7 @@ Version @version@ is based on earlier CTS specifications from 2003-2013 with con
 - Andrew Gollan
 - Michael Gursky
 - Sebastian Heath
+- Uwe Kretschmer
 - Scott Mcphee
 - David Mimno
 - Neil Moore
