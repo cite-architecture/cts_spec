@@ -1,7 +1,20 @@
 # cts-spec
 
 
-Specification of the Canonical Text Services protocol (CTS) version 5.0.rc.1.  The text of the specification is markdown format in the file `md/specification.md`.  The Relax NG schemas defining the syntax of the CTS replies are in the directory `reply_schemas`.
+Specification of the Canonical Text Services protocol (CTS) version 5.0.rc.1. 
+
+The source text of the specification is in markdown format in the file `md/specification.md`.  The
+source text systematically refers to the current version number with the gradle property notation `@version@`.  
+This reference is replaced with the actual current version value in the build process.
+ 
+The Relax NG schemas defining the syntax of the CTS replies are in the directory `reply_schemas`.
+
+## Draft status and discussion
+
+The last released version of the specification is 5.0.rc.1.  Current work is on 
+5.0.rc.2. See the project wiki at <https://github.com/neelsmith/cts_spec/wiki> for more information 
+about status and future plans.
+
 
 ## Using this build file ##
 
@@ -12,7 +25,8 @@ This build file includes a task named `release` that replaces references to the 
 
 Prerequisites:  beautifuldocs, <http://beautifuldocs.com/>.
 
-The following sequence is not yet pacakged as a build task, but can easily be done as follows:
+We are currentl using beautifuldocs to install searchable HTML versions of this specification on a number
+of web sites.  The following sequence is not yet packaged as a build task, but can easily be done as follows:
 
 	gradle release
 	cp md/manifest.json build/pkg

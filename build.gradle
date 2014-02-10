@@ -8,7 +8,7 @@ apply plugin: "maven"
 
 group = "org.homermultitext"
 
-version = "5.0.rc.1"
+version = "5.0.rc.2"
 
 
 if (hasProperty('pub')) {
