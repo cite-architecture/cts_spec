@@ -97,7 +97,7 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 | Parameter |	Required/optional |	Description |  
 |  ------	| ------	| ------	|  
-| request | required | The value `GetValidReff` |
+| request | required | The value `GetPrevNextUrn` |
 | urn | required | A citable passage of text |  
 
 
@@ -127,7 +127,7 @@ All requests other than `GetCapabilities` further require a parameter named `urn
 
 | Parameter |	Required/optional |	Description |  
 |  ------	| ------	| ------	|  
-| request | required | The value `GetLabel` |
+| request | required | The value `GetPassage` |
 | urn | required | Text passage to retrieve  |
 | context |   optional | Number of citation units, at the same level of the citation hierarchy as the requested urn, immediately preceding and immediately following  the requested urn to include in the reply  |
 
@@ -146,9 +146,9 @@ The semantics of the `prevnext` element's content  depends on whether or not the
 
 When no `context` parameter is included, the contents of the `prevnext` element correspond to the meaning of `GetPrevNextUrn` request.  When a `context` parameter is included, the semantics of the `prevnext` element take account of the fact that up to `context` citation units could be included before or after the requested node.  
 
-If a `context` parameter is give, and there are at least `context` citation units prior to the request urn, then the `prev` element's `urn` element refers to the citable node that is `context` citation units before the first unit in the `passage` reply (that is, the node that is `2*context` citation units before the requested urn).  If there are fewer than `context` units but at least one unit before the requested urn, then the vaue of the `prev` element's `urn` element is the first urn of the text.  
+If a `context` parameter is given, and there are at least `context` citation units prior to the request urn, then the `prev` element's `urn` element refers to the citable node that is `context` citation units before the first unit in the `passage` reply (that is, the node that is `2*context` citation units before the requested urn).  If there are fewer than `context` units but at least one unit before the requested urn, then the value of the `prev` element's `urn` element is the first urn of the text.  
 
-If a `context` parameter is give, and there are at least `context` citation units following the request urn, then the `next` element's `urn` element refers to the citable node that is `context` citation units after the first unit in the `passage` reply (that is, the node that is `2*context` citation units after the requested urn).  If there are fewer than `context` units but at least one unit after the requested urn, then the vaue of the `prev` element's `urn` element is the last urn of the text.  
+If a `context` parameter is given, and there are at least `context` citation units following the request urn, then the `next` element's `urn` element refers to the citable node that is `context` citation units after the first unit in the `passage` reply (that is, the node that is `2*context` citation units after the requested urn).  If there are fewer than `context` units but at least one unit after the requested urn, then the vaue of the `next` element's `urn` element is the last urn of the text.  
 
 Whether or not a `context` parameter is included, if the requested urn identifies the first node in the text, the value of the `prev` element's `urn` element must be a null string.  If the requested urn identifies the last node in the text, the value of the `next` element's `urn` element must be a null string. 
 
@@ -208,7 +208,7 @@ The `GetPrevNextUrn` reply includes two `cts:urn` elements.  The value of each e
 
 ### GetFirstUrn ###
 
-The `GetFirstUrn` reply includes one `cts:urn` elements.  The value of this element must be a valid CTS URN and must include a passage component identifying the version of the work as a specific edition or translation.
+The `GetFirstUrn` reply includes one `cts:urn` element.  The value of this element must be a valid CTS URN and must include a passage component identifying the version of the work as a specific edition or translation.
 
 
 ### GetLabel ##
