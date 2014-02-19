@@ -5,7 +5,7 @@
     xmlns:cts="http://chs.harvard.edu/xmlns/cts">
     <start>
         <element
-            name="cts:GetPrevNextUrn">
+            name="cts:GetFirstUrn">
             <externalRef
                 href="request.rng"/>
             <element
