@@ -273,5 +273,6 @@ Version @version@ is based on earlier CTS specifications from 2003-2013 with con
 - Bruce Robertson
 - Jeff Rydberg-Cox
 - Ross Scaife
+- Jochen Tiepmar
 - John Wallrodt
 - Gabe Weaver
