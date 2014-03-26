@@ -1,0 +1,24 @@
+<grammar
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+    xmlns:cts="http://chs.harvard.edu/xmlns/cts">
+    <start>
+        <element
+            name="cts:CTSError">
+            <element
+                name="cts:message">
+                <text/>
+            </element>
+            <element
+                name="cts:code">
+                <choice>
+                    <value>1</value>
+                    <value>2</value>
+                    <value>3</value>
+                    <value>4</value>
+                </choice>
+            </element>
+        </element>
+    </start>
+</grammar>
