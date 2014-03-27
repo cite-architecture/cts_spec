@@ -12,19 +12,25 @@
 			name="dc:title">
 			<attribute
 				name="xml:lang">
-				<data type="string">
-					<param name="pattern">...+</param>
+				<data
+					type="string">
+					<param
+						name="pattern">...+</param>
 				</data>
 			</attribute>
-			<data type="string">
-				<param name="pattern">.+</param>
+			<data
+				type="string">
+				<param
+					name="pattern">.+</param>
 			</data>
 		</element>
 		<oneOrMore>
 			<element
 				name="dc:creator">
-				<data type="string">
-					<param name="pattern">.+</param>
+				<data
+					type="string">
+					<param
+						name="pattern">.+</param>
 				</data>
 			</element>
 		</oneOrMore>
@@ -32,8 +38,10 @@
 			name="dc:coverage">
 			<attribute
 				name="xml:lang"/>
-			<data type="string">
-				<param name="pattern">.+</param>
+			<data
+				type="string">
+				<param
+					name="pattern">.+</param>
 			</data>
 		</element>
 		<element
@@ -46,8 +54,10 @@
 			name="dc:rights">
 			<attribute
 				name="xml:lang">
-				<data type="string">
-					<param name="pattern">...+</param>
+				<data
+					type="string">
+					<param
+						name="pattern">...+</param>
 				</data>
 			</attribute>
 			<text/>
@@ -96,11 +106,13 @@
 							name="ti:description">
 							<attribute
 								name="xml:lang">
-							<data type="string">
-							<param name="pattern">...+</param>
-							</data>
+								<data
+									type="string">
+									<param
+										name="pattern">...+</param>
+								</data>
 							</attribute>
-						<text/>
+							<text/>
 						</element>
 					</optional>
 				</element>
