@@ -4,7 +4,7 @@
 
 **Editors**:  Christopher Blackwell and Neel Smith, Center for Hellenic Studies Technical Working Group leads.
 
-**Date**:  February, 2014.
+**Date**:  April, 2014.
 
 **License**:  This specification and the associated Relax NG schemas are available under the terms of the Creative Commons Attribution-ShareAlike 4.0 International License, <http://creativecommons.org/licenses/by-sa/4.0/deed.en_US>.
 
@@ -237,7 +237,7 @@ As in the `GetLabel` request, implementors are strongly encouraged to include as
 The published text of this specification in markdown notation is packaged with a directory of Relax NG schemas specifying the syntax of the seven defined CTS requests.  The schema with the corresponding name can be used to validate the syntax of a CTS reply (e.g., the `GetCapabilities.rng` schema can be used to validate the `GetCapabilities` reply).
 
 ## Related ##
-`ctsvalidator` is a software package that is not part of the CTS specification, but may be used to assess the compliance of a CTS installation with version @version@ of the specification.   It is available from this github repository:   <https://github.com/neelsmith/ctsvalidator>.
+`ctsvalidator` is a software package that is not part of the CTS specification, but may be used to assess the compliance of a CTS installation with version @version@ of the specification.   It is available from this github repository:   <https://github.com/cite-architecture/ctsvalidator>.  Clone the repository, and follow the instructions in the `README` file to load test data and run the validation tests.
 
 ## Links
 
