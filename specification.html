@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Canonical Text Services protocol specification</title>
+
+    <link type="text/css" rel="stylesheet" href="assets/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/docs.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/print.css" media="print">
+    
+
+    <script type="text/javascript" src="assets/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+    <script type="text/javascript" src="assets/js/lunr.min.js"></script>
+
+    
+
+    <script type="text/javascript">var BASE_URL = "";</script>
+    <script type="text/javascript" src="assets/js/viewer.js"></script>
+
+    
+</head>
+<body>
+    <div id="page">
+        <a name="top" />
+        <header id="header">
+            <h1><a href="">Canonical Text Services protocol specification</a></h1>
+        </header>
+        
+
+<div id="sidebar">
+    <form action="search.html"><input id="search" type="text" placeholder="Search" name="q" /></form>
+    <nav id="toc">
+        
+    <ol>
+    
+        <li>
+            <a href="specification.html#the-canonical-text-services-protocol-version-50rc2">The Canonical Text Services protocol, version 5.0.rc.2</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="specification.html#cts">CTS</a>
+            
+        </li>
+    
+        <li>
+            <a href="specification.html#client-server-communication">Client-server communication</a>
+            
+        </li>
+    
+        <li>
+            <a href="specification.html#cts-request-parameters">CTS request parameters</a>
+            
+        </li>
+    
+        <li>
+            <a href="specification.html#cts-replies">CTS replies</a>
+            
+        </li>
+    
+        <li>
+            <a href="specification.html#individual-replies">Individual replies</a>
+            
+        </li>
+    
+        <li>
+            <a href="specification.html#reply-schemas">Reply schemas</a>
+            
+        </li>
+    
+        <li>
+            <a href="specification.html#related">Related</a>
+            
+        </li>
+    
+        <li>
+            <a href="specification.html#links">Links</a>
+            
+        </li>
+    
+        <li>
+            <a href="specification.html#acknowledgments">Acknowledgments</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+</ol>
+
+    </nav>
+    
+    <nav id="links">
+        <ul>
+            
+        </ul>
+    </nav>
+    
+</div>
+
+        <div id="content">
+            <h1 id="the-canonical-text-services-protocol-version-5-0-rc-2">The Canonical Text Services protocol, version 5.0.rc.2</h1>
+<p><strong>Content</strong>:  This document defines version 5.0.rc.2 of the Canonical Text Services protocol (CTS).  This specification incorporates by reference the Relax NG schemas identified below.</p>
+<p><strong>Editors</strong>:  Christopher Blackwell and Neel Smith, Center for Hellenic Studies Technical Working Group leads.</p>
+<p><strong>Date</strong>:  April, 2014.</p>
+<p><strong>License</strong>:  This specification and the associated Relax NG schemas are available under the terms of the Creative Commons Attribution-ShareAlike 4.0 International License, <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.en_US">http://creativecommons.org/licenses/by-sa/4.0/deed.en_US</a>.</p>
+<h2 id="cts">CTS</h2>
+<p>The Canonical Text Services protocol defines interaction between a client and server providing identification of texts and retrieval of canonically cited passages of texts.</p>
+<h3 id="versions">Versions</h3>
+<p><em>Release versions</em> are identified by two dot-separated integers, with the first being most significant. E.g., &quot;2.0&quot; is greater than &quot;1.10&quot; but &quot;1.10&quot; is greater than &quot;1.2&quot;. </p>
+<p>An identifier for a pre-release version is composed of a regular release-version number followed by a dot-separated string indicating its test status (e.g., &quot;1.2.beta&quot; or &quot;1.2.rc&quot;). Optionally, the identifer for a test version may have a further positive integer indicating its sequence in that test series (e.g., &quot;1.2.beta.2&quot;). </p>
+<p>Client applications may indicate a valid version number in the optional <code>version</code> parameter of the <code>GetCapabilities</code> request (see below). Use of a version parameter in client requests may be required in future versions of this protocol. </p>
+<h2 id="client-server-communication">Client-server communication</h2>
+<p>An instance of a CTS implementation is addressable by a Uniform Resource Locator (URL), referred to hereafter as a CTS &quot;base URL&quot;.  CTS requests are formed by adding request parameters, as specified below, directly to the base URL.  More formally, the concatenation of the base URL with URL parameters must produce a valid URL according to the requirements of the URL specification <a href="http://www.ietf.org/rfc/rfc2396.txt">IETF RFC 2396</a>.  Replies are formatted in XML validating against the reply schemas identified below.  </p>
+<h3 id="discussion-non-normative-">Discussion (non-normative)</h3>
+<p>While all implementations of CTS known to the authors to date have used HTTP as the transport protocol, this is not required by CTS.  It is conceivable, for example, that implementors might choose to implement CTS by exchanging requests and replies over a duplex protocol.</p>
+<p>CTS does not specify what is returned from the base URL if no request parameters are supplied, but it is recommended that implementors return basic information identifying the service in plain text, markdown or XHTML format.</p>
+<p>Note that the base URL could be a string like </p>
+<pre><code>http://myhost/mycts?
+</code></pre><p>because directly adding valid CTS request parameters as defined in this document results in a valid URL under RFC 2396, e.g., <code>http://myhost/mycts?request=GetCapabilities</code> is  a valid URL.  Likewise,</p>
+<pre><code>http://myhost/mycts?configuration=default&amp;
+</code></pre><p>is a valid base URL because the request <code>http://myhost/mycts?configuration=default&amp;request=GetCapabilities</code> is a valid URL. </p>
+<h2 id="cts-request-parameters">CTS request parameters</h2>
+<h3 id="common-requirements">Common requirements</h3>
+<p>In a full CTS request URL, each parameter&#39;s name and value pair must be separated from any following parameters by an ampersand (&quot;&amp;&quot;, Unicode x0026); name and value for each individual parameter must be separated by an equals sign (&quot;=&quot;, Unicode x003D).  The characters &quot;&amp;&quot;,  &quot;=&quot;  and the solidus  (&quot;/&quot;, Unicode x002F) must not be used in the values of a CTS request parameter.  Parameter names and values are both case sensitive. Order of parameters in a request is not significant. </p>
+<p>All CTS requests include a URL parameter named <code>request</code>. The value of this parameter must be the name of one the seven requests, <code>GetCapabilities</code>, <code>GetValidReff</code>,  <code>GetFirstUrn</code>,  <code>GetPrevNextUrn</code>, <code>GetLabel</code>, <code>GetPassage</code> or <code>GetPassagePlus</code>.</p>
+<p>All requests other than <code>GetCapabilities</code> further require a parameter named <code>urn</code>.  The value of this parameter must be a valid CTS URN value, as defined in the <a href="http://www.homermultitext.org/hmt-docs/specifications/ctsurn">CTS URN specification</a>.</p>
+<h3 id="getcapabilities">GetCapabilities</h3>
+<p><strong>Purpose</strong>: The GetCapabilities request returns a reply that defines a corpus of texts known to the server and, for texts that are available online, identifies their citation schemes.</p>
+<p><strong>Request syntax and semantics</strong>:  No parameters other than the <code>request</code> parameter are required.  A request may optionally include a <code>version</code> parameter indicating the version of the protocol preferred by the client.  As of version 5.0.rc.2, CTS implementations are not required to recognize or alter their reply in response to a <code>version</code> parameter. </p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required/optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request</td>
+<td>required</td>
+<td>the value <code>GetCapabilities</code></td>
+</tr>
+<tr>
+<td>version</td>
+<td>optional</td>
+<td>Client may indicate preferred version of CTS protocol</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getvalidreff">GetValidReff</h3>
+<p><strong>Purpose</strong>:   The GetValidReff request identifies all valid values for one on-line version of a requested work, up to a specified level of the citation hierarchy.</p>
+<p><strong>Request syntax and semantics</strong>:  The <code>urn</code> parameter identifies a text or a text passage.  If the work component of the URN is given at the notional work level, the implementation is free to supply valid reference values from any single online version of the work in its inventory.  If the URN includes a passage component, the reply must include only valid values contained in the requested passage.  The <code>level</code> parameter indicates how many levels of the citation hierarchy should be included in the reply.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required/optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request</td>
+<td>required</td>
+<td>The value <code>GetValidReff</code></td>
+</tr>
+<tr>
+<td>urn</td>
+<td>required</td>
+<td>Work, version or text passage for which to find valid references</td>
+</tr>
+<tr>
+<td>level</td>
+<td>required</td>
+<td>Number of levels of citation hierarchy to report</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getfirsturn">GetFirstUrn</h3>
+<p><strong>Purpose</strong>:   The <code>GetFirstUrn</code> request identifies, at the same level of the citation hierarchy as the <code>urn</code> parameter, the first citation node in a text.  </p>
+<p><strong>Request syntax and semantics</strong>:   The <code>urn</code> parameter identifies a work, version or text passage.  If the work component of the URN is given at the notional work level, the implementation is free to return the first URN values from any single online version of the work in its inventory. </p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required/optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request</td>
+<td>required</td>
+<td>The value <code>GetFirstUrn</code></td>
+</tr>
+<tr>
+<td>urn</td>
+<td>required</td>
+<td>A work, version or text passage</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getprevnexturn">GetPrevNextUrn</h3>
+<p><strong>Purpose</strong>:   The <code>GetPrevNextUrn</code> request identifies, at the same level of the citation hierarchy as the <code>urn</code> parameter, the  preceding and following citation nodes.  </p>
+<p><strong>Request syntax and semantics</strong>:    The <code>urn</code> parameter identifies a text passage.  If the work component of the URN is given at the notional work level, the implementation is free to return preceding and following URN values from any single online version of the work in its inventory.  If the <code>urn</code> parameter identifies the first node in the text, the previous URN value will be a null string.  If the <code>urn</code> parameter identifies the last node in the text, the following URN value will be a null string. </p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required/optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request</td>
+<td>required</td>
+<td>The value <code>GetPrevNextUrn</code></td>
+</tr>
+<tr>
+<td>urn</td>
+<td>required</td>
+<td>A citable passage of text</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getlabel">GetLabel</h3>
+<p><strong>Purpose</strong>: The <code>GetLabel</code> request retrieves a human-readable label describing a text or text passage.</p>
+<p><strong>Request syntax and semantics</strong>:  The <code>urn</code> parameter identifies a text group, a text or a text passage.  The contents of the returned label are not defined by CTS.  Implementations should return a descriptive string that is semantically comparable to the use of <code>rdfs:label</code> in <a href="http://www.w3.org/TR/rdf-schema/">RDF Schema</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required/optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request</td>
+<td>required</td>
+<td>The value <code>GetLabel</code></td>
+</tr>
+<tr>
+<td>urn</td>
+<td>required</td>
+<td>Text group, work, version or text passage to label</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getpassage">GetPassage</h3>
+<p><strong>Purpose</strong>:  The <code>GetPassage</code> request retrieves a passage of a text identified by a URN, optionally including a requested amount of adjacent context.</p>
+<p><strong>Request syntax and semantics</strong>:  The <code>urn</code> parameter identifies a text passage.  An optional <code>context</code> parameter may request a number of preceding and following citation units to include along with the requested urn.  It is not an error if the document contains fewer than <code>context</code> preceding units or following units. It is an error if the <code>context</code> parameter is not a positive integer.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required/optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request</td>
+<td>required</td>
+<td>The value <code>GetPassage</code></td>
+</tr>
+<tr>
+<td>urn</td>
+<td>required</td>
+<td>Text passage to retrieve</td>
+</tr>
+<tr>
+<td>context</td>
+<td>optional</td>
+<td>Number of citation units, at the same level of the citation hierarchy as the requested urn, immediately preceding and immediately following  the requested urn to include in the reply</td>
+</tr>
+</tbody>
+</table>
+<h3 id="getpassageplus">GetPassagePlus</h3>
+<p><strong>Purpose</strong>:  The <code>GetPassagePlus</code> request retrieves a passage of a text identified by a URN, wrapped together with the information provided by the <code>GetLabel</code>, <code>GetPrevNextUrn</code>, <code>GetFirstUrn</code> and <code>GetValidReff</code> requests. Like <code>GetPassage</code>, the <code>GetPassagePlus</code> request may optionally include a requested amount of adjacent context.</p>
+<p><strong>Request syntax and semantics</strong>:  The <code>urn</code> parameter identifies a text passage.  An optional <code>context</code> parameter may request a number of preceding and following citation units to include along with the requested urn.  It is not an error if the document contains fewer than <code>context</code> preceding units or following units. It is an error if the <code>context</code> parameter is not a positive integer.  The <code>firsturn</code> element and the <code>label</code> element have the same meaning as the <code>GetFirstUrn</code> and <code>GetLabel</code> requests, respectively.  The <code>validreff</code> element must be empty if the requested CTS URN cites a single leaf node in the text&#39;s citation hierarchy;  if the requested CTS URN cites either a range of nodes or a single node at a non-leaf level of the hierarchy, the contents of the <code>validreff</code> element must be the same as the corresponding <code>GetValidReff</code> request.</p>
+<p>The semantics of the <code>prevnext</code> element&#39;s content  depends on whether or not the optional <code>context</code> parameter is included.  </p>
+<p>When no <code>context</code> parameter is included, the contents of the <code>prevnext</code> element correspond to the meaning of <code>GetPrevNextUrn</code> request.  When a <code>context</code> parameter is included, the semantics of the <code>prevnext</code> element take account of the fact that up to <code>context</code> citation units could be included before or after the requested node.  </p>
+<p>If a <code>context</code> parameter is given, and there are at least <code>context</code> citation units prior to the request urn, then the <code>prev</code> element&#39;s <code>urn</code> element refers to the citable node that is <code>context</code> citation units before the first unit in the <code>passage</code> reply (that is, the node that is <code>2*context</code> citation units before the requested urn).  If there are fewer than <code>context</code> units but at least one unit before the requested urn, then the value of the <code>prev</code> element&#39;s <code>urn</code> element is the first urn of the text.  </p>
+<p>If a <code>context</code> parameter is given, and there are at least <code>context</code> citation units following the request urn, then the <code>next</code> element&#39;s <code>urn</code> element refers to the citable node that is <code>context</code> citation units after the first unit in the <code>passage</code> reply (that is, the node that is <code>2*context</code> citation units after the requested urn).  If there are fewer than <code>context</code> units but at least one unit after the requested urn, then the vaue of the <code>next</code> element&#39;s <code>urn</code> element is the last urn of the text.  </p>
+<p>Whether or not a <code>context</code> parameter is included, if the requested urn identifies the first node in the text, the value of the <code>prev</code> element&#39;s <code>urn</code> element must be a null string.  If the requested urn identifies the last node in the text, the value of the <code>next</code> element&#39;s <code>urn</code> element must be a null string. </p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required/optional</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request</td>
+<td>required</td>
+<td>The value <code>GetLabel</code></td>
+</tr>
+<tr>
+<td>urn</td>
+<td>required</td>
+<td>Text passage to retrieve</td>
+</tr>
+<tr>
+<td>context</td>
+<td>optional</td>
+<td>Number of citation units, at the same level of the citation hierarchy as the requested urn, immediately preceding and immediately following  the requested urn to include in the reply</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cts-replies">CTS replies</h2>
+<p>The reply to a valid CTS request is always a well-formed XML document with a root element having the same name as the CTS request validating against one of the schemas identified below.  The reply to an invalid request validates against the schema <code>Error.rng</code>.  The XML namespace for all replies is <code>http://chs.harvard.edu/xmlns/cts/</code>.  In the rest of this document, this will be referred to with the abbreviation <code>cts:</code></p>
+<p>The reply document always contains exactly two elements, the first of which is named <code>request</code>. The contexts of the <code>request</code> element are unspecified, and may be used for any purpose the implementor wishes.  As the name of the element is intended to imply, it is strongly recommended that implementing software include in this element information about the parameters passed in with the request. Developers may also use this element for other purposes such as embedding debugging information in a reply that complies with the CTS specification. </p>
+<p>If the syntax and contents of <code>request</code> parameters do not fully comply with the specifications in this document, the second element of the reply is named <code>CTSError</code>, and contains two elements, <code>message</code> and <code>code</code>.  The contents of the <code>message</code> should contain a human-readable description of the error, but is not otherwise specified.  The <code>code</code> element contains an integer with one of the following values:</p>
+<table>
+<thead>
+<tr>
+<th>Error code</th>
+<th>meaning  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Request missing one or more required parameters</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Invalid URN syntax</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Syntactically valid URN refers in invalid value  </td>
+</tr>
+<tr>
+<td>4</td>
+<td>Invalid value for <code>level</code> parameter in <code>GetValidReff</code> request</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Invalid value for <code>context</code> parameter in <code>GetPassage</code> or <code>GetPassagePlus</code> request</td>
+</tr>
+</tbody>
+</table>
+<p>If the syntax and contents of request parameters fully comply with the specifications in this document, then the name and format of the second element vary according to the request, and are defined in the following sections. </p>
+<h2 id="individual-replies">Individual replies</h2>
+<p>While the Relax NG schema for each requests defines and can be used to enforce a number of the syntactic requirements of CTS, there are further requirements that cannont be readily defined in a schema language.  These are specified for each request in the following sections.</p>
+<h3 id="getcapabilities">GetCapabilities</h3>
+<p>Each element in the XML hierarchy of <code>cts:textgroup</code>, <code>cts:work</code>, <code>cts:edition</code>  or <code>cts:translation</code>and <code>cts:exemplar</code> has a <code>urn</code> attribute identifying the unit.  Each urn value must be unique within the <code>GetCapabilities</code> reply.  Each urn must be a valid CTS URN value, and the CTS URN of the containing element must match this value up to the final component of the URN&#39;s work hierarchy.  The urn&#39;s CTS namespace must be previously defined in the <code>abbr</code> attribute of a <code>cts:ctsnamespace</code> element.</p>
+<p>Many elements include <code>xml:lang</code> attributes, which must use 3-character codes from ISO 639-2 <a href="http://lcweb.loc.gov/standards/iso639-2/englangn.html">http://lcweb.loc.gov/standards/iso639-2/englangn.html</a> or 3-character or longer codes from ISO 639-5 <a href="http://www.loc.gov/standards/iso639-5/id.php">http://www.loc.gov/standards/iso639-5/id.php</a>.  The semantics of the <code>xml:lang</code> attribute in a CTS <code>GetCapabilities</code> reply is:</p>
+<ul>
+<li>on elements giving names, titles and labels, <code>xml:lang</code> refers to the primary language of the content of the element</li>
+<li>on the <code>cts:work</code> element, <code>xml:lang</code> refers to the primary language of the notional work</li>
+<li>on the <code>cts:translation</code> elemet, <code>xml:lang</code> refers to the primary language of the translated version of the work.  <code>cts:edition</code> elements do not have an <code>xml:lang</code> attribute because an edition is defined as any identifiable version of a notional work that has the same primary language as the notional work.</li>
+</ul>
+<h3 id="getvalidreff">GetValidReff</h3>
+<p>The core of the <code>GetValidReff</code> request is an ordered list of <code>cts:urn</code> elements.  The value of each element must be a valid CTS URN, and the list must be in document order.   Each URN must include a passage component identifying the version of the work as a specific edition or translation.  The citation level of the passage component must be equal to the citation level of the request urn.</p>
+<h3 id="getprevnexturn">GetPrevNextUrn</h3>
+<p>The <code>GetPrevNextUrn</code> reply includes two <code>cts:urn</code> elements.  The value of each element must be either empty, or a valid CTS URN.  If the value is not empty, it must include a passage component identifying the version of the work as a specific edition or translation.</p>
+<h3 id="getfirsturn">GetFirstUrn</h3>
+<p>The <code>GetFirstUrn</code> reply includes one <code>cts:urn</code> element.  The value of this element must be a valid CTS URN and must include a passage component identifying the version of the work as a specific edition or translation.</p>
+<h3 id="getlabel">GetLabel</h3>
+<p>The content of the <code>cts:label</code> element may have any text the implementor chooses.  Its contents should be comparable 
+to the value of a <code>rdfs:label</code> in RDF Schema.  Implementors are strongly encouraged to include as part of the <code>cts:label</code> contents separately labelled strings for any of the optional <code>ti:groupname</code>, <code>ti:title</code>, <code>ti:version</code> and <code>ti:citation</code> elements that are relevant.</p>
+<h3 id="getpassage">GetPassage</h3>
+<p>The <code>GetPassage</code> reply includes one <code>cts:urn</code> element.  The value of this element must be a valid CTS URN identifying the content in the <code>cts:passage</code> element and must include a passage component identifying the version of the work as a specific edition or translation.</p>
+<p>The content of the <code>cts:passage</code> consists of a passage of text from the edition or translation specified in the request urn, and may therefore be further structured or formatted in whatever manner was selected by the editor of the particular edition or translation.  The CTS implementation must ensure that including the contents of the requested in the <code>cts:passage</code> element results in well-formed XML.</p>
+<h3 id="getpassageplus">GetPassagePlus</h3>
+<p>The <code>GetPassagePlus</code> reply includes one <code>cts:urn</code> element at the root of the <code>ti:request</code> element.  The value of this element must be a valid CTS URN identifying the content in the <code>cts:passage</code> element and must include a passage component identifying the version of the work as a specific edition or translation.</p>
+<p>It includes two further <code>cts:urn</code> elements within the <code>prevnext</code> element. The value of each of these two elements must be either empty, or a valid CTS URN.</p>
+<p>The content of the <code>cts:passage</code> consists of a passage of text from the edition or translation specified in the request urn, and may therefore be further structured or formatted in whatever manner was selected by the editor of the particular edition or translation.  The CTS implementation must ensure that including the contents of the requested in the <code>cts:passage</code> element results in well-formed XML.</p>
+<p>As in the <code>GetLabel</code> request, implementors are strongly encouraged to include as part of the conents of the <code>cts:label</code> element separately labelled strings for any of the optional <code>ti:groupname</code>, <code>ti:title</code>, <code>ti:version</code> and <code>ti:citation</code> elements that are relevant.</p>
+<h2 id="reply-schemas">Reply schemas</h2>
+<p>The published text of this specification in markdown notation is packaged with a directory of Relax NG schemas specifying the syntax of the seven defined CTS requests.  The schema with the corresponding name can be used to validate the syntax of a CTS reply (e.g., the <code>GetCapabilities.rng</code> schema can be used to validate the <code>GetCapabilities</code> reply).</p>
+<h2 id="related">Related</h2>
+<p><code>ctsvalidator</code> is a software package that is not part of the CTS specification, but may be used to assess the compliance of a CTS installation with version 5.0.rc.2 of the specification.   It is available from this github repository:   <a href="https://github.com/cite-architecture/ctsvalidator">https://github.com/cite-architecture/ctsvalidator</a>.  Clone the repository, and follow the instructions in the <code>README</code> file to load test data and run the validation tests.</p>
+<h2 id="links">Links</h2>
+<ul>
+<li>The CTS URN specification: <a href="http://www.homermultitext.org/hmt-docs/specifications/ctsurn">http://www.homermultitext.org/hmt-docs/specifications/ctsurn</a> </li>
+<li>Maven settings for using the release version of this specification and its schemas from a maven client: <ul>
+<li>group: <code>org.homermultitext</code></li>
+<li>artifact: <code>cts_spec</code></li>
+<li>version: <code>5.0</code></li>
+</ul>
+</li>
+<li>Nexus repository to proxy this release:  <a href="http://beta.hpcc.uh.edu/nexus/content/repositories/releases">http://beta.hpcc.uh.edu/nexus/content/repositories/releases</a> </li>
+<li>Known mirrors of this specification:<ul>
+<li>from the Homer Multitext project:  <a href="http://www.homermultitext.org/hmt-docs/specifications/cts">http://www.homermultitext.org/hmt-docs/specifications/cts</a></li>
+<li>from Furman University: <a href="http://folio.furman.edu/projects/citedocs/cts">http://folio.furman.edu/projects/citedocs/cts</a></li>
+<li>from the College of the Holy Cross:  <a href="http://shot.holycross.edu/hmt/hmt-docs/specifications/cts">http://shot.holycross.edu/hmt/hmt-docs/specifications/cts</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>Version 5.0.rc.2 is based on earlier CTS specifications from 2003-2013 with contributions from Lenny Muellner, Program Director of Publications and Information Technology at CHS, and:</p>
+<ul>
+<li>Jason Aftosmis</li>
+<li>Bridget Almas</li>
+<li>Hugh Cayless</li>
+<li>Greg Crane</li>
+<li>Tom Elliott</li>
+<li>Ryan Gabbard</li>
+<li>Andrew Gollan</li>
+<li>Michael Gursky</li>
+<li>Sebastian Heath</li>
+<li>Uwe Kretschmer</li>
+<li>Scott Mcphee</li>
+<li>David Mimno</li>
+<li>Neil Moore</li>
+<li>Bruce Robertson</li>
+<li>Jeff Rydberg-Cox</li>
+<li>Ross Scaife</li>
+<li>Jochen Tiepmar</li>
+<li>John Wallrodt</li>
+<li>Gabe Weaver</li>
+</ul>
+
+
+
+
+        </div>
+        <footer id="footer">
+            Powered by <a href="http://github.com/maximebf/beautiful-docs">beautiful-docs</a> -
+            <a href="#top">Back to top</a> - <a href="all.html">Everything on a single page</a>
+            - <a href="?print=1">Print current page</a> - <a href="all.html?print=1">Print all pages</a>
+            
+        </footer>
+    </div>
+</body>
+</html>
